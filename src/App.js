@@ -8,9 +8,16 @@ import ImpulseList from './components/impulselist';
 import fire from './config/firebase';
 
 class App extends Component {
+  encode = (data) => {
+    return Object.keys(data)
+      .map(key => encodeURIComponent(key) + "=" + encodeURIComponent(data[key]))
+      .join("&");
+    }
+
   constructor(props) {
     super(props);
     this.state = { things: [] };
+    this.createNewImpulse = this.createNewImpulse.bind(this);
   }
   componentWillMount() {
     let thingsRef = fire.database().ref('things').orderByKey();
@@ -24,7 +31,7 @@ class App extends Component {
     fetch("/", {
        method: "POST",
        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-       body: encode({ "form-name": "impukse", ...values })
+       body: this.encode({ "form-name": "impukse", ...values })
      })
   }
   render() {
