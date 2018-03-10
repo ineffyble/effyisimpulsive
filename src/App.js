@@ -28,11 +28,13 @@ class App extends Component {
   }
   createNewImpulse(values) {
     fire.database().ref('things').push(values);
-    fetch("/", {
-       method: "POST",
-       headers: { "Content-Type": "application/x-www-form-urlencoded" },
-       body: this.encode({ "form-name": "impulse", ...values })
-     })
+    if (values.type == 'bought') {
+      fetch("/", {
+         method: "POST",
+         headers: { "Content-Type": "application/x-www-form-urlencoded" },
+         body: this.encode({ "form-name": "impulse", "Thing": values.thing, "Amount": values.amount })
+       })
+    }
   }
   render() {
     return (
