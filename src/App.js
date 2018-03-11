@@ -32,7 +32,7 @@ class App extends Component {
       fetch("/", {
          method: "POST",
          headers: { "Content-Type": "application/x-www-form-urlencoded" },
-         body: this.encode({ "form-name": "impulse", "Thing": values.thing, "Amount": values.amount })
+         body: this.encode({ "form-name": "impulse", "thing": values.thing, "amount": values.amount })
        })
     }
   }
